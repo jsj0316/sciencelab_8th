@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>송쌤과학 × 승재의 과학체육관 가상실험실</title>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@300;400;500;700;900&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    /* Copilot AI Style Light Theme Colors */
+    --bg-main: #f8f9fa;
+    --surface: #ffffff;
+    --text-main: #111827;
+    --text-muted: #6b7280;
+    --border-light: #e5e7eb;
+    
+    /* Copilot Signature Gradients */
+    --ai-grad-1: linear-gradient(135deg, #0078d4, #b442b8, #f05454);
+    --ai-grad-blue: linear-gradient(135deg, #0078d4, #28a8ea);
+    --ai-grad-green: linear-gradient(135deg, #10b981, #3b82f6);
+    --ai-grad-orange: linear-gradient(135deg, #f59e0b, #ef4444);
+    
+    /* Tag Colors */
+    --tag-blue-bg: #eff6ff;
+    --tag-blue-text: #2563eb;
+    --tag-yellow-bg: #fefce8;
+    --tag-yellow-text: #ca8a04;
+    --tag-green-bg: #f0fdf4;
+    --tag-green-text: #16a34a;
+
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    --shadow-lg: 0 10px 25px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+    --shadow-hover: 0 20px 40px -5px rgba(0, 0, 0, 0.1), 0 10px 20px -5px rgba(0, 0, 0, 0.05);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    font-family: 'Noto Sans KR', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* --- Background Animated Orbs (Copilot Style) --- */
+  .bg-orbs {
+    position: fixed;
+    top: 0; left: 0; width: 100vw; height: 100vh;
+    overflow: hidden;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.6;
+  }
+
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    animation: float 20s infinite ease-in-out alternate;
+  }
+
+  .orb-1 {
+    width: 400px; height: 400px;
+    background: rgba(0, 120, 212, 0.15);
+    top: -10%; left: -10%;
+  }
+
+  .orb-2 {
+    width: 500px; height: 500px;
+    background: rgba(180, 66, 184, 0.1);
+    bottom: -20%; right: -10%;
+    animation-delay: -5s;
+  }
+
+  .orb-3 {
+    width: 300px; height: 300px;
+    background: rgba(240, 84, 84, 0.1);
+    top: 40%; left: 50%;
+    transform: translate(-50%, -50%);
+    animation-delay: -10s;
+  }
+
+  @keyframes float {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(50px, 30px) scale(1.1); }
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+
+  /* --- Top AI Energy Bar --- */
+  .ai-top-bar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--ai-grad-1);
+    z-index: 100;
+  }
+
+  /* --- Agent Banner (Copilot Prompt Box Style) --- */
+  .agent-banner {
+    margin: 40px auto 20px;
+    max-width: 800px;
+    background: var(--surface);
+    border-radius: 24px;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--border-light);
+    animation: fadeSlideDown 0.6s ease both;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+
+  .agent-banner:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+  }
+
+  .agent-banner-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .agent-icon-wrapper {
+    position: relative;
+    width: 44px; height: 44px;
+    border-radius: 14px;
+    background: var(--surface);
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: inset 0 0 0 2px transparent;
+    background-clip: padding-box;
+    font-size: 22px;
+  }
+
+  .agent-icon-wrapper::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 16px;
+    background: var(--ai-grad-1);
+    z-index: -1;
+    animation: spin 4s linear infinite;
+  }
+
+  @keyframes spin {
+    100% { filter: hue-rotate(360deg); }
+  }
+
+  .agent-text h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 2px;
+    background: var(--ai-grad-1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .agent-text p {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  .agent-btn {
+    background: var(--text-main);
+    color: #fff;
+    font-weight: 500;
+    font-size: 14px;
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    transition: background-color 0.2s, transform 0.2s;
+  }
+
+  .agent-btn:hover {
+    background: #000;
+    transform: scale(1.02);
+  }
+
+  /* --- Header --- */
+  header {
+    text-align: center;
+    padding: 60px 0 50px;
+    animation: fadeSlideDown 0.8s ease 0.1s both;
+  }
+
+  .lab-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #0078d4;
+    background: #eff6ff;
+    padding: 6px 14px;
+    border-radius: 20px;
+    margin-bottom: 24px;
+  }
+
+  header h1 {
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: clamp(32px, 5vw, 52px);
+    line-height: 1.2;
+    margin-bottom: 12px;
+    color: var(--text-main);
+    letter-spacing: -0.5px;
+  }
+
+  header h1 .highlight-blue {
+    background: var(--ai-grad-blue);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  header h1 .highlight-green {
+    background: var(--ai-grad-orange); /* Changed to fit warm AI vibe */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  header p {
+    font-size: 16px;
+    color: var(--text-muted);
+    margin-top: 16px;
+    font-weight: 400;
+  }
+
+  .grade-tag {
+    display: inline-block;
+    background: var(--surface);
+    border: 1px solid var(--border-light);
+    box-shadow: var(--shadow-sm);
+    color: var(--text-muted);
+    font-size: 13px;
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-top: 16px;
+    font-weight: 500;
+  }
+
+  /* --- Search Bar --- */
+  .search-container {
+    max-width: 600px;
+    margin: 0 auto 56px auto;
+    position: relative;
+    animation: fadeSlideDown 0.8s ease 0.2s both;
+  }
+
+  .search-box {
+    display: flex;
+    align-items: center;
+    background: var(--surface);
+    border: 2px solid var(--border-light);
+    border-radius: 30px;
+    padding: 8px 8px 8px 20px;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
+  }
+
+  .search-box:focus-within {
+    border-color: #0078d4;
+    box-shadow: 0 0 0 4px rgba(0, 120, 212, 0.15);
+  }
+
+  .search-icon {
+    width: 20px;
+    height: 20px;
+    color: var(--text-muted);
+    margin-right: 12px;
+  }
+
+  #searchInput {
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 15px;
+    color: var(--text-main);
+    font-family: inherit;
+  }
+
+  #searchInput::placeholder {
+    color: #9ca3af;
+  }
+
+  #searchBtn {
+    background: var(--text-main);
+    color: #fff;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 24px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.2s;
+  }
+
+  #searchBtn:hover {
+    background: #000;
+    transform: scale(1.02);
+  }
+
+  .search-message {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    margin-top: 12px;
+    font-size: 13px;
+    color: #ef4444;
+    display: none;
+    font-weight: 500;
+  }
+
+  /* Search Highlight Animation */
+  @keyframes highlightCard {
+    0% { box-shadow: var(--shadow-md); transform: scale(1); border-color: var(--border-light); }
+    30% { box-shadow: 0 0 0 4px rgba(0, 120, 212, 0.3); transform: scale(1.02); border-color: #0078d4; }
+    70% { box-shadow: 0 0 0 4px rgba(0, 120, 212, 0.3); transform: scale(1.02); border-color: #0078d4; }
+    100% { box-shadow: var(--shadow-md); transform: scale(1); border-color: var(--border-light); }
+  }
+
+  .card.highlighted {
+    animation: highlightCard 2s ease-out;
+  }
+
+  /* --- Section & Cards --- */
+  .section {
+    margin-bottom: 64px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid var(--border-light);
+  }
+
+  .section-num {
+    font-family: 'Orbitron', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 8px;
+    letter-spacing: 0.5px;
+  }
+
+  .unit-1 .section-num { background: var(--tag-blue-bg); color: var(--tag-blue-text); }
+  .unit-4 .section-num { background: var(--tag-green-bg); color: var(--tag-green-text); }
+
+  .section-title {
+    font-weight: 700;
+    font-size: 22px;
+    color: var(--text-main);
+  }
+
+  .section-count {
+    margin-left: auto;
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 500;
+    background: var(--border-light);
+    padding: 4px 12px;
+    border-radius: 12px;
+  }
+
+  .cards {
+    display: grid;
+    gap: 24px;
+  }
+
+  .unit-1 .cards { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+  .unit-4 .cards { grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); }
+
+  /* AI Card Style */
+  .card {
+    background: var(--surface);
+    border-radius: 20px;
+    border: 1px solid var(--border-light);
+    padding: 28px;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: var(--shadow-md);
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .card.animate {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 22px;
+    background: var(--ai-grad-1);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+    border-color: transparent;
+  }
+
+  .card:hover::before {
+    opacity: 1;
+  }
+
+  .card-icon-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  .card-emoji {
+    width: 48px;
+    height: 48px;
+    background: var(--bg-main);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .card-tag {
+    font-size: 11px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+  }
+
+  .tag-experiment { background: var(--tag-blue-bg); color: var(--tag-blue-text); }
+  .tag-quiz { background: var(--tag-yellow-bg); color: var(--tag-yellow-text); }
+  .tag-game { background: var(--tag-green-bg); color: var(--tag-green-text); }
+
+  .card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    line-height: 1.4;
+    color: var(--text-main);
+  }
+
+  .card p {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 24px;
+    flex-grow: 1;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-light);
+  }
+
+  .card-link {
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .unit-1 .card-link { color: var(--tag-blue-text); }
+  .unit-4 .card-link { color: var(--tag-green-text); }
+
+  .card-arrow {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--bg-main);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    transition: transform 0.3s, background 0.3s, color 0.3s;
+    color: var(--text-muted);
+  }
+
+  .card:hover .card-arrow {
+    transform: translateX(4px);
+    background: var(--text-main);
+    color: #fff;
+  }
+
+  /* --- Footer & YouTube Links --- */
+  .youtube-links {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+
+  .youtube-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface);
+    color: var(--text-main);
+    border: 1px solid var(--border-light);
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  }
+
+  .youtube-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: #ff0000;
+  }
+
+  .youtube-btn svg {
+    width: 18px;
+    height: 18px;
+    fill: #ff0000;
+  }
+
+  /* --- Footer --- */
+  footer {
+    text-align: center;
+    padding-top: 40px;
+    border-top: 1px solid var(--border-light);
+    color: var(--text-muted);
+    font-size: 13px;
+    line-height: 1.8;
+  }
+
+  footer .brand {
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--text-main);
+    margin-bottom: 4px;
+  }
+
+  /* --- Animations --- */
+  @keyframes fadeSlideDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Responsive Adjustments */
+  @media (max-width: 600px) {
+    .agent-banner { flex-direction: column; text-align: center; padding: 20px; }
+    .agent-banner-left { flex-direction: column; gap: 12px; }
+    .agent-btn { width: 100%; justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Animated Copilot Background Orbs -->
+<div class="bg-orbs">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+</div>
+
+<div class="ai-top-bar"></div>
+
+<div class="container">
+
+  <!-- Agent Banner (Copilot Style) -->
+  <div class="agent-banner">
+    <div class="agent-banner-left">
+      <div class="agent-icon-wrapper">
+        🤖
+      </div>
+      <div class="agent-text">
+        <h3>AI 프롬프트 제작 에이전트</h3>
+        <p>가상실험실 콘텐츠를 자동으로 설계하는 AI 에이전트와 대화해 보세요</p>
+      </div>
+    </div>
+    <a href="https://m365.cloud.microsoft/chat/?titleId=T_89741d24-9696-322c-aa69-4955f2ab27a5&source=embedded-builder" target="_blank" rel="noopener noreferrer" class="agent-btn">
+      <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+      에이전트 연결
+    </a>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <div class="lab-badge">
+      <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M19.333 14.667a4.66 4.66 0 00-1.15-3.111l-4.516-5.018V3.333h1.333a1 1 0 100-2h-6a1 1 0 100 2h1.333v3.205L5.817 11.556a4.66 4.66 0 00-1.15 3.111A4.667 4.667 0 009.333 19.333h5.334a4.667 4.667 0 004.666-4.666zM14.667 17.333H9.333a2.667 2.667 0 01-2.185-4.212l4.852-5.39v-4.4h0v4.4l4.852 5.39a2.667 2.667 0 01-2.185 4.212z"></path></svg>
+      Virtual Science Lab
+    </div>
+    <h1>
+      <span class="highlight-blue">송쌤과학</span> × <span class="highlight-green">승재의 과학체육관</span><br>가상실험실
+    </h1>
+    <div class="grade-tag">중학교 2학년 과학 실험 시뮬레이션</div>
+    <p>AI가 제안하는 완벽한 실험 환경, 클릭 한 번으로 개념을 경험하세요.</p>
+  </header>
+
+  <!-- Search Bar -->
+  <div class="search-container">
+    <div class="search-box">
+      <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+      </svg>
+      <input type="text" id="searchInput" placeholder="실험 명칭을 검색해 보세요 (예: 증류탑, 밀도, 주기율표...)">
+      <button id="searchBtn">검색</button>
+    </div>
+    <div id="searchMessage" class="search-message"></div>
+  </div>
+
+  <!-- Unit 1 -->
+  <section class="section unit-1">
+    <div class="section-header">
+      <span class="section-num">1단원</span>
+      <h2 class="section-title">물질의 특성</h2>
+      <span class="section-count">실험 3개</span>
+    </div>
+    <div class="cards">
+
+      <a href="https://jsj0316.github.io/2-1-2-distillation/" target="_blank" rel="noopener noreferrer" class="card">
+        <div class="card-icon-row">
+          <div class="card-emoji">🛢️</div>
+          <span class="card-tag tag-experiment">시뮬레이션</span>
+        </div>
+        <h3>원유 증류탑 실험</h3>
+        <p>끓는점 차이를 이용해 원유를 분리하는 분별 증류 과정을 단계별로 생생하게 경험해 보세요.</p>
+        <div class="card-footer">
+          <span class="card-link">실험 시작하기</span>
+          <div class="card-arrow">→</div>
+        </div>
+      </a>
+
+      <a href="https://jsj0316.github.io/2-1-1-density/" target="_blank" rel="noopener noreferrer" class="card">
+        <div class="card-icon-row">
+          <div class="card-emoji">⚖️</div>
+          <span class="card-tag tag-experiment">시뮬레이션</span>
+        </div>
+        <h3>밀도 실험</h3>
+        <p>여러 물질의 질량과 부피를 직접 측정하여 밀도를 계산하고, 고유한 밀도의 차이를 확인하세요.</p>
+        <div class="card-footer">
+          <span class="card-link">실험 시작하기</span>
+          <div class="card-arrow">→</div>
+        </div>
+      </a>
+
+      <a href="https://jsj0316.github.io/2-1-2-solubility/" target="_blank" rel="noopener noreferrer" class="card">
+        <div class="card-icon-row">
+          <div class="card-emoji">🧪</div>
+          <span class="card-tag tag-experiment">시뮬레이션</span>
+        </div>
+        <h3>용해도 차 선택 분리 실험</h3>
+        <p>온도에 따른 용해도 차이를 이용해 혼합물에서 원하는 물질만 완벽하게 분리하는 원리를 알아봅니다.</p>
+        <div class="card-footer">
+          <span class="card-link">실험 시작하기</span>
+          <div class="card-arrow">→</div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- Unit 4 -->
+  <section class="section unit-4">
+    <div class="section-header">
+      <span class="section-num">4단원</span>
+      <h2 class="section-title">물질의 구성</h2>
+      <span class="section-count">활동 2개</span>
+    </div>
+    <div class="cards">
+
+      <a href="https://jsj0316.github.io/periodic-table-quiz-game/" target="_blank" rel="noopener noreferrer" class="card">
+        <div class="card-icon-row">
+          <div class="card-emoji">⏱️</div>
+          <span class="card-tag tag-quiz">3분 퀴즈</span>
+        </div>
+        <h3>주기율표 3분 퀴즈</h3>
+        <p>원소 기호, 원소 이름, 원자 번호를 3분 안에 얼마나 맞힐 수 있을까요? 최고 점수에 도전해 보세요!</p>
+        <div class="card-footer">
+          <span class="card-link">퀴즈 시작하기</span>
+          <div class="card-arrow">→</div>
+        </div>
+      </a>
+
+      <a href="https://jsj0316.github.io/element-rain-typing-game/" target="_blank" rel="noopener noreferrer" class="card">
+        <div class="card-icon-row">
+          <div class="card-emoji">🌧️</div>
+          <span class="card-tag tag-game">게임</span>
+        </div>
+        <h3>주기율표 산성비 게임</h3>
+        <p>하늘에서 내리는 원소들을 주기율표의 올바른 위치에 빠르게 배치하세요. 틀리면 산성비가 내립니다!</p>
+        <div class="card-footer">
+          <span class="card-link">게임 시작하기</span>
+          <div class="card-arrow">→</div>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <footer>
+    <div class="youtube-links">
+      <a href="https://www.youtube.com/@songsamscience" target="_blank" rel="noopener noreferrer" class="youtube-btn">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21.582 6.186a2.6 2.6 0 0 0-1.838-1.854C18.125 3.9 12 3.9 12 3.9s-6.125 0-7.744.432a2.6 2.6 0 0 0-1.838 1.854C2 7.824 2 12 2 12s0 4.176.418 5.814a2.6 2.6 0 0 0 1.838 1.854C5.875 20.1 12 20.1 12 20.1s6.125 0 7.744-.432a2.6 2.6 0 0 0 1.838-1.854C22 16.176 22 12 22 12s0-4.176-.418-5.814zM9.995 15.353v-6.706L15.836 12l-5.84 3.353z"/></svg>
+        송쌤과학 유튜브
+      </a>
+      <a href="https://www.youtube.com/@Sweat_on_science" target="_blank" rel="noopener noreferrer" class="youtube-btn">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21.582 6.186a2.6 2.6 0 0 0-1.838-1.854C18.125 3.9 12 3.9 12 3.9s-6.125 0-7.744.432a2.6 2.6 0 0 0-1.838 1.854C2 7.824 2 12 2 12s0 4.176.418 5.814a2.6 2.6 0 0 0 1.838 1.854C5.875 20.1 12 20.1 12 20.1s6.125 0 7.744-.432a2.6 2.6 0 0 0 1.838-1.854C22 16.176 22 12 22 12s0-4.176-.418-5.814zM9.995 15.353v-6.706L15.836 12l-5.84 3.353z"/></svg>
+        승재쌤의 과학체육관
+      </a>
+    </div>
+    <div class="brand">송쌤과학 × 승재의 과학체육관</div>
+    <div>중학교 2학년 과학 가상실험실 · 실험 콘텐츠가 지속적으로 업데이트 됩니다</div>
+  </footer>
+
+</div>
+
+<script>
+  // 마우스 이동에 따라 배경의 AI 오브(Orb)들이 미세하게 움직이는 패럴랙스 효과
+  document.addEventListener('mousemove', (e) => {
+    const orbs = document.querySelectorAll('.orb');
+    const x = e.clientX / window.innerWidth - 0.5;
+    const y = e.clientY / window.innerHeight - 0.5;
+    
+    orbs.forEach((orb, index) => {
+      const speed = (index + 1) * 20;
+      orb.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
+    });
+  });
+
+  // 스크롤 시 카드가 부드럽게 나타나는 애니메이션 (Intersection Observer)
+  const cards = document.querySelectorAll('.card');
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, index) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('animate');
+        }, index * 100); // 카드마다 약간의 시차를 둠
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.1,
+    rootMargin: "0px 0px -50px 0px"
+  });
+
+  cards.forEach(card => {
+    observer.observe(card);
+  });
+
+  // 실험 검색 기능
+  const searchInput = document.getElementById('searchInput');
+  const searchBtn = document.getElementById('searchBtn');
+  const searchMessage = document.getElementById('searchMessage');
+
+  function performSearch() {
+    const query = searchInput.value.trim().toLowerCase();
+    
+    // 검색어가 없으면 메시지 숨기고 종료
+    if (!query) {
+      searchMessage.style.display = 'none';
+      return;
+    }
+
+    let foundCard = null;
+
+    // 기존 하이라이트 효과 제거
+    cards.forEach(c => c.classList.remove('highlighted'));
+
+    // 카드 순회하며 검색어 확인
+    for (let i = 0; i < cards.length; i++) {
+      const card = cards[i];
+      const title = card.querySelector('h3').textContent.toLowerCase();
+      const desc = card.querySelector('p').textContent.toLowerCase();
+
+      // 제목이나 설명에 검색어가 포함되어 있는지 확인
+      if (title.includes(query) || desc.includes(query)) {
+        foundCard = card;
+        break; // 첫 번째로 찾은 카드에서 종료
+      }
+    }
+
+    if (foundCard) {
+      searchMessage.style.display = 'none';
+      
+      // 스크롤 이동 (화면 중앙에 오도록)
+      foundCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      
+      // 시각적 피드백을 위해 약간의 딜레이 후 하이라이트 애니메이션 적용
+      setTimeout(() => {
+        foundCard.classList.add('highlighted');
+      }, 400);
+    } else {
+      searchMessage.textContent = `'${searchInput.value}'에 대한 실험을 찾을 수 없습니다.`;
+      searchMessage.style.display = 'block';
+    }
+  }
+
+  // 검색 버튼 클릭 이벤트
+  searchBtn.addEventListener('click', performSearch);
+
+  // 엔터 키 입력 이벤트
+  searchInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      performSearch();
+    }
+  });
+
+  // 입력 중일 때는 에러 메시지 숨기기
+  searchInput.addEventListener('input', () => {
+    searchMessage.style.display = 'none';
+  });
+</script>
+</body>
+</html>
