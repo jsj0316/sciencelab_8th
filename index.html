@@ -45,7 +45,7 @@
     position: relative;
   }
 
-  /* --- Background Animated Orbs (Copilot Style) --- */
+  /* --- Background Animated Orbs --- */
   .bg-orbs {
     position: fixed;
     top: 0; left: 0; width: 100vw; height: 100vh;
@@ -105,7 +105,7 @@
     z-index: 100;
   }
 
-  /* --- Agent Banner (Copilot Prompt Box Style) --- */
+  /* --- Agent Banner --- */
   .agent-banner {
     margin: 40px auto 20px;
     max-width: 800px;
@@ -231,7 +231,7 @@
   }
 
   header h1 .highlight-green {
-    background: var(--ai-grad-orange); /* Changed to fit warm AI vibe */
+    background: var(--ai-grad-orange);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
   }
@@ -331,7 +331,6 @@
     font-weight: 500;
   }
 
-  /* Search Highlight Animation */
   @keyframes highlightCard {
     0% { box-shadow: var(--shadow-md); transform: scale(1); border-color: var(--border-light); }
     30% { box-shadow: 0 0 0 4px rgba(0, 120, 212, 0.3); transform: scale(1.02); border-color: #0078d4; }
@@ -393,7 +392,6 @@
   .unit-1 .cards { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
   .unit-4 .cards { grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); }
 
-  /* AI Card Style */
   .card {
     background: var(--surface);
     border-radius: 20px;
@@ -521,7 +519,7 @@
     color: #fff;
   }
 
-  /* --- Footer & YouTube Links --- */
+  /* --- Footer & Links --- */
   .youtube-links {
     display: flex;
     justify-content: center;
@@ -552,13 +550,8 @@
     border-color: #ff0000;
   }
 
-  .youtube-btn svg {
-    width: 18px;
-    height: 18px;
-    fill: #ff0000;
-  }
+  .youtube-btn svg { width: 18px; height: 18px; fill: #ff0000; }
 
-  /* --- Footer --- */
   footer {
     text-align: center;
     padding-top: 40px;
@@ -568,20 +561,13 @@
     line-height: 1.8;
   }
 
-  footer .brand {
-    font-weight: 700;
-    font-size: 15px;
-    color: var(--text-main);
-    margin-bottom: 4px;
-  }
+  footer .brand { font-weight: 700; font-size: 15px; color: var(--text-main); margin-bottom: 4px; }
 
-  /* --- Animations --- */
   @keyframes fadeSlideDown {
     from { opacity: 0; transform: translateY(-20px); }
     to { opacity: 1; transform: translateY(0); }
   }
 
-  /* Responsive Adjustments */
   @media (max-width: 600px) {
     .agent-banner { flex-direction: column; text-align: center; padding: 20px; }
     .agent-banner-left { flex-direction: column; gap: 12px; }
@@ -591,7 +577,6 @@
 </head>
 <body>
 
-<!-- Animated Copilot Background Orbs -->
 <div class="bg-orbs">
   <div class="orb orb-1"></div>
   <div class="orb orb-2"></div>
@@ -602,47 +587,34 @@
 
 <div class="container">
 
-  <!-- Agent Banner (Copilot Style) -->
+  <!-- Agent Banner -->
   <div class="agent-banner">
     <div class="agent-banner-left">
-      <div class="agent-icon-wrapper">
-        🤖
-      </div>
+      <div class="agent-icon-wrapper">🤖</div>
       <div class="agent-text">
         <h3>AI 프롬프트 제작 에이전트</h3>
-        <p>직접 VIBE CODING을 이용하여 가상실험실을 만들고 싶으신가요? 가상실험실 콘텐츠를 자동으로 설계하는 선생님만을 위한 AI 에이전트와 대화해 보세요!</p>
+        <p>직접 VIBE CODING을 이용하여 가상실험실을 만들고 싶으신가요? 가상실험실 콘텐츠를 설계하는 선생님만을 위한 에이전트!</p>
       </div>
     </div>
     <a href="https://m365.cloud.microsoft/chat/?titleId=T_89741d24-9696-322c-aa69-4955f2ab27a5&source=embedded-builder" target="_blank" rel="noopener noreferrer" class="agent-btn">
-      <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
       에이전트 연결
     </a>
   </div>
 
   <!-- Header -->
   <header>
-    <div class="lab-badge">
-      <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M19.333 14.667a4.66 4.66 0 00-1.15-3.111l-4.516-5.018V3.333h1.333a1 1 0 100-2h-6a1 1 0 100 2h1.333v3.205L5.817 11.556a4.66 4.66 0 00-1.15 3.111A4.667 4.667 0 009.333 19.333h5.334a4.667 4.667 0 004.666-4.666zM14.667 17.333H9.333a2.667 2.667 0 01-2.185-4.212l4.852-5.39v-4.4h0v4.4l4.852 5.39a2.667 2.667 0 01-2.185 4.212z"></path></svg>
-      Virtual Science Lab
-    </div>
+    <div class="lab-badge">Virtual Science Lab</div>
     <h1>
       <span class="highlight-blue">송쌤과학</span> × <span class="highlight-green">과학체육관</span><br>가상실험실
     </h1>
     <div class="grade-tag">중학교 2학년 과학 실험 시뮬레이션</div>
-<p>
-  송쌤과학과 과학체육관이 함께 만든 가상실험실입니다.<br>
-  교과서 속 실험뿐 아니라 과학 개념 암기와 시각적 이해를 돕는 다양한 시뮬레이션과 게임을 제공합니다.
-</p>
-
+    <p>송쌤과학과 과학체육관이 함께 만든 가상실험실입니다.<br>개념 이해와 시각적 학습을 돕는 다양한 실험을 제공합니다.</p>
   </header>
 
   <!-- Search Bar -->
   <div class="search-container">
     <div class="search-box">
-      <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-      </svg>
-      <input type="text" id="searchInput" placeholder="실험 명칭을 검색해 보세요 (예: 증류탑, 밀도, 주기율표...)">
+      <input type="text" id="searchInput" placeholder="실험 명칭을 검색해 보세요 (예: 증류탑, 밀도...)">
       <button id="searchBtn">검색</button>
     </div>
     <div id="searchMessage" class="search-message"></div>
@@ -653,131 +625,122 @@
     <div class="section-header">
       <span class="section-num">1단원</span>
       <h2 class="section-title">물질의 특성</h2>
-      <!-- 새롭게 추가된 콘텐츠 포함하여 총 9개로 카운트 수정 -->
       <span class="section-count">콘텐츠 9개</span>
     </div>
     <div class="cards">
 
-      <!-- 기존 콘텐츠 1 -->
       <a href="https://jsj0316.github.io/2-1-2-distillation/" target="_blank" rel="noopener noreferrer" class="card">
         <div class="card-icon-row">
           <div class="card-emoji">🛢️</div>
           <span class="card-tag tag-experiment">시뮬레이션</span>
         </div>
         <h3>원유 증류탑 실험</h3>
-        <p>끓는점 차이를 이용해 원유를 분리하는 분별 증류 과정을 단계별로 생생하게 경험해 보세요.</p>
+        <p>끓는점 차이를 이용해 원유를 분리하는 분별 증류 과정을 단계별로 경험해 보세요.</p>
         <div class="card-footer">
           <span class="card-link">실험 시작하기</span>
           <div class="card-arrow">→</div>
         </div>
       </a>
 
-      <!-- 기존 콘텐츠 2 -->
       <a href="https://jsj0316.github.io/2-1-1-density/" target="_blank" rel="noopener noreferrer" class="card">
         <div class="card-icon-row">
           <div class="card-emoji">⚖️</div>
           <span class="card-tag tag-experiment">시뮬레이션</span>
         </div>
         <h3>밀도 실험</h3>
-        <p>여러 물질의 질량과 부피를 직접 측정하여 밀도를 계산하고, 고유한 밀도의 차이를 확인하세요.</p>
+        <p>여러 물질의 질량과 부피를 직접 측정하여 밀도를 계산하고 차이를 확인하세요.</p>
         <div class="card-footer">
           <span class="card-link">실험 시작하기</span>
           <div class="card-arrow">→</div>
         </div>
       </a>
 
-      <!-- 기존 콘텐츠 3 -->
       <a href="https://jsj0316.github.io/2-1-2-solubility/" target="_blank" rel="noopener noreferrer" class="card">
         <div class="card-icon-row">
           <div class="card-emoji">🧪</div>
           <span class="card-tag tag-experiment">시뮬레이션</span>
         </div>
         <h3>용해도 차 선택 분리 실험</h3>
-        <p>온도에 따른 용해도 차이를 이용해 혼합물에서 원하는 물질만 완벽하게 분리하는 원리를 알아봅니다.</p>
+        <p>온도에 따른 용해도 차이를 이용해 혼합물에서 물질을 분리하는 원리를 알아봅니다.</p>
         <div class="card-footer">
           <span class="card-link">실험 시작하기</span>
           <div class="card-arrow">→</div>
         </div>
       </a>
 
-      <!-- 신규 콘텐츠 1: 물과 에탄올의 분리 (끓는점 차) -->
       <a href="https://claude.ai/public/artifacts/c68abfad-5e6b-4842-8871-43a09fe6c128" target="_blank" rel="noopener noreferrer" class="card">
         <div class="card-icon-row">
           <div class="card-emoji">🌡️</div>
           <span class="card-tag tag-experiment">시뮬레이션</span>
         </div>
         <h3>물과 에탄올의 분리</h3>
-        <p>끓는점 차이를 이용하여 액체 혼합물인 물과 에탄올을 분리하는 가상 실험(미래엔 교과서 기준)입니다.</p>
+        <p>끓는점 차이를 이용하여 액체 혼합물인 물과 에탄올을 분리하는 가상 실험입니다.</p>
         <div class="card-footer">
           <span class="card-link">실험 시작하기</span>
           <div class="card-arrow">→</div>
         </div>
       </a>
 
-      <!-- 신규 콘텐츠 2: 용해도 차를 이용한 분리 (재결정) - 링크 임시 # 처리 -->
-      <a href="#" target="_blank" rel="noopener noreferrer" class="card">
+      <!-- 요청하신 링크 적용 부분 -->
+      <a href="https://claude.ai/public/artifacts/5c980c20-d2c5-41b4-b64f-097872b4f9a6" target="_blank" rel="noopener noreferrer" class="card">
         <div class="card-icon-row">
           <div class="card-emoji">💎</div>
           <span class="card-tag tag-experiment">시뮬레이션</span>
         </div>
         <h3>용해도 차 분리 (재결정)</h3>
-        <p>온도 변화에 따른 용해도 차이를 이용하여 혼합물을 분리하고 순수한 결정을 얻는 시뮬레이션입니다.</p>
+        <p>온도 변화에 따른 용해도 차이를 이용하여 혼합물을 분리하고 결정을 얻는 시뮬레이션입니다.</p>
         <div class="card-footer">
           <span class="card-link">실험 시작하기</span>
           <div class="card-arrow">→</div>
         </div>
       </a>
 
-      <!-- 신규 콘텐츠 3: 밀도 차를 이용한 분리 -->
       <a href="https://jsj0316.github.io/Separation-by-density-difference/" target="_blank" rel="noopener noreferrer" class="card">
         <div class="card-icon-row">
           <div class="card-emoji">🧊</div>
           <span class="card-tag tag-experiment">시뮬레이션</span>
         </div>
         <h3>밀도 차를 이용한 혼합물 분리</h3>
-        <p>서로 섞이지 않는 액체나 고체 혼합물을 밀도 차이를 이용해 효과적으로 분리하는 방법을 학습합니다.</p>
+        <p>서로 섞이지 않는 액체나 고체 혼합물을 밀도 차이를 이용해 분리해 봅니다.</p>
         <div class="card-footer">
           <span class="card-link">실험 시작하기</span>
           <div class="card-arrow">→</div>
         </div>
       </a>
 
-      <!-- 신규 콘텐츠 4: 밀도차를 이용한 칵테일 만들기 -->
       <a href="https://jsj0316.github.io/density_cocktail/" target="_blank" rel="noopener noreferrer" class="card">
         <div class="card-icon-row">
           <div class="card-emoji">🍹</div>
           <span class="card-tag tag-experiment">시뮬레이션</span>
         </div>
         <h3>밀도탑 칵테일 만들기</h3>
-        <p>다양한 액체의 밀도 차이를 직접 눈으로 확인하며 층층이 쌓인 아름다운 밀도탑 칵테일을 만들어 봅니다.</p>
+        <p>다양한 액체의 밀도 차이를 확인하며 아름다운 밀도탑 칵테일을 만들어 봅니다.</p>
         <div class="card-footer">
           <span class="card-link">실험 시작하기</span>
           <div class="card-arrow">→</div>
         </div>
       </a>
 
-      <!-- 신규 콘텐츠 5: 밀도 특제 음료 만들기 게임 -->
       <a href="https://jsj0316.github.io/density_cocktail_game/" target="_blank" rel="noopener noreferrer" class="card">
         <div class="card-icon-row">
           <div class="card-emoji">🥤</div>
           <span class="card-tag tag-game">게임</span>
         </div>
         <h3>밀도 특제 음료 타이쿤</h3>
-        <p>손님들의 주문에 맞춰 밀도 원리를 활용해 특제 음료를 빠르고 정확하게 완성해 보세요!</p>
+        <p>손님 주문에 맞춰 밀도 원리를 활용해 음료를 정확하게 완성해 보세요!</p>
         <div class="card-footer">
           <span class="card-link">게임 시작하기</span>
           <div class="card-arrow">→</div>
         </div>
       </a>
 
-      <!-- 신규 콘텐츠 6: 기체의 용해도 -->
       <a href="https://jsj0316.github.io/solubility_of_gases/" target="_blank" rel="noopener noreferrer" class="card">
         <div class="card-icon-row">
           <div class="card-emoji">🫧</div>
           <span class="card-tag tag-experiment">시뮬레이션</span>
         </div>
         <h3>기체의 용해도 시뮬레이션</h3>
-        <p>온도와 압력 조건이 변할 때 액체에 녹아들어가는 기체의 용해도가 어떻게 달라지는지 확인합니다.</p>
+        <p>온도와 압력 변화에 따라 기체의 용해도가 어떻게 달라지는지 확인합니다.</p>
         <div class="card-footer">
           <span class="card-link">실험 시작하기</span>
           <div class="card-arrow">→</div>
@@ -795,149 +758,96 @@
       <span class="section-count">활동 2개</span>
     </div>
     <div class="cards">
-
       <a href="https://jsj0316.github.io/periodic-table-quiz-game/" target="_blank" rel="noopener noreferrer" class="card">
         <div class="card-icon-row">
           <div class="card-emoji">⏱️</div>
           <span class="card-tag tag-quiz">3분 퀴즈</span>
         </div>
         <h3>주기율표 3분 퀴즈</h3>
-        <p>원소 기호, 원소 이름, 원자 번호를 3분 안에 얼마나 맞힐 수 있을까요? 최고 점수에 도전해 보세요!</p>
+        <p>원소 기호와 이름을 3분 안에 얼마나 맞힐 수 있을까요? 최고 점수에 도전해 보세요!</p>
         <div class="card-footer">
           <span class="card-link">퀴즈 시작하기</span>
           <div class="card-arrow">→</div>
         </div>
       </a>
-
       <a href="https://jsj0316.github.io/element-rain-typing-game/" target="_blank" rel="noopener noreferrer" class="card">
         <div class="card-icon-row">
           <div class="card-emoji">🌧️</div>
           <span class="card-tag tag-game">게임</span>
         </div>
         <h3>주기율표 산성비 게임</h3>
-        <p>하늘에서 내리는 원소들을 주기율표의 올바른 위치에 빠르게 배치하세요. 틀리면 산성비가 내립니다!</p>
+        <p>하늘에서 내리는 원소들을 올바른 위치에 배치하세요. 틀리면 산성비가 내립니다!</p>
         <div class="card-footer">
           <span class="card-link">게임 시작하기</span>
           <div class="card-arrow">→</div>
         </div>
       </a>
-
     </div>
   </section>
 
   <footer>
     <div class="youtube-links">
-      <a href="https://www.youtube.com/@songsamscience" target="_blank" rel="noopener noreferrer" class="youtube-btn">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21.582 6.186a2.6 2.6 0 0 0-1.838-1.854C18.125 3.9 12 3.9 12 3.9s-6.125 0-7.744.432a2.6 2.6 0 0 0-1.838 1.854C2 7.824 2 12 2 12s0 4.176.418 5.814a2.6 2.6 0 0 0 1.838 1.854C5.875 20.1 12 20.1 12 20.1s6.125 0 7.744-.432a2.6 2.6 0 0 0 1.838-1.854C22 16.176 22 12 22 12s0-4.176-.418-5.814zM9.995 15.353v-6.706L15.836 12l-5.84 3.353z"/></svg>
-        송쌤과학 유튜브
-      </a>
-      <a href="https://www.instagram.com/sweat_on_science/" target="_blank" rel="noopener noreferrer" class="youtube-btn">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-        승재쌤의 과학체육관 인스타
-      </a>
+      <a href="https://www.youtube.com/@songsamscience" target="_blank" rel="noopener noreferrer" class="youtube-btn">송쌤과학 유튜브</a>
+      <a href="https://www.instagram.com/sweat_on_science/" target="_blank" rel="noopener noreferrer" class="youtube-btn">과학체육관 인스타</a>
     </div>
     <div class="brand">송쌤과학 × 과학체육관</div>
-    <div>중학교 2학년 과학 가상실험실 · 실험 콘텐츠가 지속적으로 업데이트 됩니다</div>
+    <div>중학교 2학년 과학 가상실험실 · 콘텐츠가 지속적으로 업데이트 됩니다</div>
   </footer>
 
 </div>
 
 <script>
-  // 마우스 이동에 따라 배경의 AI 오브(Orb)들이 미세하게 움직이는 패럴랙스 효과
+  // 배경 오브 인터랙션
   document.addEventListener('mousemove', (e) => {
     const orbs = document.querySelectorAll('.orb');
     const x = e.clientX / window.innerWidth - 0.5;
     const y = e.clientY / window.innerHeight - 0.5;
-    
     orbs.forEach((orb, index) => {
       const speed = (index + 1) * 20;
       orb.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
     });
   });
 
-  // 스크롤 시 카드가 부드럽게 나타나는 애니메이션 (Intersection Observer)
+  // 카드 등장 애니메이션
   const cards = document.querySelectorAll('.card');
-  
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry, index) => {
       if (entry.isIntersecting) {
-        setTimeout(() => {
-          entry.target.classList.add('animate');
-        }, index * 100); // 카드마다 약간의 시차를 둠
+        setTimeout(() => { entry.target.classList.add('animate'); }, index * 100);
         observer.unobserve(entry.target);
       }
     });
-  }, {
-    threshold: 0.1,
-    rootMargin: "0px 0px -50px 0px"
-  });
+  }, { threshold: 0.1 });
+  cards.forEach(card => observer.observe(card));
 
-  cards.forEach(card => {
-    observer.observe(card);
-  });
-
-  // 실험 검색 기능
+  // 검색 기능
   const searchInput = document.getElementById('searchInput');
   const searchBtn = document.getElementById('searchBtn');
   const searchMessage = document.getElementById('searchMessage');
 
   function performSearch() {
     const query = searchInput.value.trim().toLowerCase();
-    
-    // 검색어가 없으면 메시지 숨기고 종료
-    if (!query) {
-      searchMessage.style.display = 'none';
-      return;
-    }
-
+    if (!query) { searchMessage.style.display = 'none'; return; }
     let foundCard = null;
-
-    // 기존 하이라이트 효과 제거
     cards.forEach(c => c.classList.remove('highlighted'));
-
-    // 카드 순회하며 검색어 확인
-    for (let i = 0; i < cards.length; i++) {
-      const card = cards[i];
+    for (let card of cards) {
       const title = card.querySelector('h3').textContent.toLowerCase();
       const desc = card.querySelector('p').textContent.toLowerCase();
-
-      // 제목이나 설명에 검색어가 포함되어 있는지 확인
-      if (title.includes(query) || desc.includes(query)) {
-        foundCard = card;
-        break; // 첫 번째로 찾은 카드에서 종료
-      }
+      if (title.includes(query) || desc.includes(query)) { foundCard = card; break; }
     }
-
     if (foundCard) {
       searchMessage.style.display = 'none';
-      
-      // 스크롤 이동 (화면 중앙에 오도록)
       foundCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      
-      // 시각적 피드백을 위해 약간의 딜레이 후 하이라이트 애니메이션 적용
-      setTimeout(() => {
-        foundCard.classList.add('highlighted');
-      }, 400);
+      setTimeout(() => { foundCard.classList.add('highlighted'); }, 400);
     } else {
       searchMessage.textContent = `'${searchInput.value}'에 대한 실험을 찾을 수 없습니다.`;
       searchMessage.style.display = 'block';
     }
   }
 
-  // 검색 버튼 클릭 이벤트
   searchBtn.addEventListener('click', performSearch);
-
-  // 엔터 키 입력 이벤트
-  searchInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-      performSearch();
-    }
-  });
-
-  // 입력 중일 때는 에러 메시지 숨기기
-  searchInput.addEventListener('input', () => {
-    searchMessage.style.display = 'none';
-  });
+  searchInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') performSearch(); });
+  searchInput.addEventListener('input', () => { searchMessage.style.display = 'none'; });
 </script>
 </body>
 </html>
