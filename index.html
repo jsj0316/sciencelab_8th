@@ -521,6 +521,29 @@
     color: #fff;
   }
 
+  .card-feedback-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 14px;
+    border-radius: 16px;
+    background: var(--tag-purple-bg);
+    color: var(--tag-purple-text);
+    font-size: 12px;
+    font-weight: 600;
+    border: 1px solid rgba(147,51,234,0.12);
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    position: relative;
+    z-index: 2;
+  }
+
+  .card-feedback-btn:hover {
+    background: rgba(147,51,234,0.15);
+    transform: scale(1.05);
+  }
+
   /* --- Feedback Section --- */
   .feedback-section {
     margin-bottom: 64px;
@@ -980,7 +1003,7 @@
   <!-- ============================================ -->
   <!-- ✅ 피드백 섹션 (Microsoft Forms 임베드) -->
   <!-- ============================================ -->
-  <section class="section feedback-section">
+  <section id="feedback" class="section feedback-section">
     <div class="section-header">
       <span class="section-num">FEEDBACK</span>
       <h2 class="section-title">가상실험실 개선 의견</h2>
@@ -1103,6 +1126,21 @@
   searchBtn.addEventListener('click', performSearch);
   searchInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') performSearch(); });
   searchInput.addEventListener('input', () => { searchMessage.style.display = 'none'; });
+
+  // 각 카드에 피드백 버튼 자동 삽입
+  document.querySelectorAll('.card .card-footer').forEach(footer => {
+    const btn = document.createElement('span');
+    btn.className = 'card-feedback-btn';
+    btn.innerHTML = '💬 의견 남기기';
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      document.getElementById('feedback').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+    // 화살표 앞에 삽입
+    const arrow = footer.querySelector('.card-arrow');
+    footer.insertBefore(btn, arrow);
+  });
 </script>
 </body>
 </html>
