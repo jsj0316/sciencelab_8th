@@ -387,12 +387,35 @@
   }
 
   .cards {
-    display: grid;
-    gap: 24px;
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 16px;
+    -webkit-overflow-scrolling: touch;
   }
 
-  .unit-1 .cards { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
-  .unit-4 .cards { grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); }
+  .cards::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .cards::-webkit-scrollbar-track {
+    background: var(--border-light);
+    border-radius: 3px;
+  }
+
+  .cards::-webkit-scrollbar-thumb {
+    background: #c4c9d4;
+    border-radius: 3px;
+  }
+
+  .cards::-webkit-scrollbar-thumb:hover {
+    background: #9ca3af;
+  }
+
+  .unit-1 .cards, .unit-4 .cards {
+    /* override old grid */
+  }
 
   .card {
     background: var(--surface);
@@ -408,6 +431,10 @@
     box-shadow: var(--shadow-md);
     opacity: 0;
     transform: translateY(20px);
+    min-width: 300px;
+    max-width: 300px;
+    flex-shrink: 0;
+    scroll-snap-align: start;
   }
 
   .card.animate {
@@ -607,11 +634,12 @@
 
   .feedback-form-body {
     position: relative;
+    overflow: hidden;
   }
 
   .feedback-form-body iframe {
     width: 100%;
-    height: 600px;
+    height: 700px;
     border: none;
     display: block;
   }
@@ -778,6 +806,64 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
+  /* --- Dropdown Filter --- */
+  .filter-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 48px;
+    animation: fadeSlideDown 0.8s ease 0.25s both;
+  }
+
+  .filter-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-muted);
+  }
+
+  .filter-select {
+    appearance: none;
+    -webkit-appearance: none;
+    background: var(--surface);
+    border: 2px solid var(--border-light);
+    border-radius: 16px;
+    padding: 10px 40px 10px 18px;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: inherit;
+    color: var(--text-main);
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.2s;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%236b7280' viewBox='0 0 16 16'%3E%3Cpath d='M4.646 5.646a.5.5 0 0 1 .708 0L8 8.293l2.646-2.647a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    min-width: 220px;
+  }
+
+  .filter-select:focus {
+    outline: none;
+    border-color: #0078d4;
+    box-shadow: 0 0 0 4px rgba(0, 120, 212, 0.15);
+  }
+
+  .filter-select:hover {
+    border-color: #9ca3af;
+  }
+
+  .section.hidden {
+    display: none;
+  }
+
+  .scroll-hint {
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 8px;
+    opacity: 0.6;
+  }
+
   @media (max-width: 768px) {
     .feedback-wrapper {
       grid-template-columns: 1fr;
@@ -788,6 +874,9 @@
     .agent-banner { flex-direction: column; text-align: center; padding: 20px; }
     .agent-banner-left { flex-direction: column; gap: 12px; }
     .agent-btn { width: 100%; justify-content: center; }
+    .card { min-width: 260px; max-width: 260px; }
+    .filter-container { flex-direction: column; gap: 8px; }
+    .filter-select { min-width: 100%; }
   }
 </style>
 </head>
@@ -834,6 +923,16 @@
       <button id="searchBtn">검색</button>
     </div>
     <div id="searchMessage" class="search-message"></div>
+  </div>
+
+  <!-- Dropdown Filter -->
+  <div class="filter-container">
+    <span class="filter-label">단원 선택</span>
+    <select id="unitFilter" class="filter-select">
+      <option value="all">전체 보기</option>
+      <option value="unit-1">1단원 — 물질의 특성</option>
+      <option value="unit-4">4단원 — 물질의 구성</option>
+    </select>
   </div>
 
   <!-- Unit 1 -->
@@ -963,6 +1062,7 @@
       </a>
 
     </div>
+    <div class="scroll-hint">← 옆으로 스크롤하여 더 보기 →</div>
   </section>
 
   <!-- Unit 4 -->
@@ -998,6 +1098,7 @@
         </div>
       </a>
     </div>
+    <div class="scroll-hint">← 옆으로 스크롤하여 더 보기 →</div>
   </section>
 
   <!-- ============================================ -->
@@ -1018,7 +1119,7 @@
         </div>
         <div class="feedback-form-body">
 
-          <iframe width="100%" height="600px" src="https://forms.office.com/Pages/ResponsePage.aspx?id=2DV8MIAmaEGQGURJ3BLDiyIywFbzOg5LpGVidKH0AhRUQ09PS1YzUFVWOUZCMkczVVdaQTMwWkpWVy4u&embed=true" frameborder="0" marginwidth="0" marginheight="0" style="border: none; max-width:100%; max-height:100vh" allowfullscreen webkitallowfullscreen mozallowfullscreen msallowfullscreen></iframe>
+          <iframe src="https://forms.office.com/Pages/ResponsePage.aspx?id=2DV8MIAmaEGQGURJ3BLDiyIywFbzOg5LpGVidKH0AhRUQ09PS1YzUFVWOUZCMkczVVdaQTMwWkpWVy4u&embed=true" frameborder="0" marginwidth="0" marginheight="0" style="border: none; width:100%; height:700px;" allowfullscreen webkitallowfullscreen mozallowfullscreen msallowfullscreen></iframe>
 
         </div>
       </div>
@@ -1126,6 +1227,33 @@
   searchBtn.addEventListener('click', performSearch);
   searchInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') performSearch(); });
   searchInput.addEventListener('input', () => { searchMessage.style.display = 'none'; });
+
+  // 단원 드롭다운 필터
+  const unitFilter = document.getElementById('unitFilter');
+  const sections = document.querySelectorAll('.section.unit-1, .section.unit-4');
+
+  unitFilter.addEventListener('change', () => {
+    const val = unitFilter.value;
+    sections.forEach(sec => {
+      if (val === 'all') {
+        sec.classList.remove('hidden');
+      } else if (sec.classList.contains(val)) {
+        sec.classList.remove('hidden');
+      } else {
+        sec.classList.add('hidden');
+      }
+    });
+  });
+
+  // 가로 스크롤: 마우스 휠로도 가능하게
+  document.querySelectorAll('.cards').forEach(container => {
+    container.addEventListener('wheel', (e) => {
+      if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+        e.preventDefault();
+        container.scrollBy({ left: e.deltaY * 2, behavior: 'smooth' });
+      }
+    }, { passive: false });
+  });
 
   // 각 카드에 피드백 버튼 자동 삽입
   document.querySelectorAll('.card .card-footer').forEach(footer => {
